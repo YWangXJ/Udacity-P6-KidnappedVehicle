@@ -25,7 +25,16 @@ struct Particle {
 };
 
 
-class ParticleFilter {  
+class ParticleFilter { 
+  private:
+  // Number of particles to draw
+  int num_particles; 
+  
+  // Flag, if filter is initialized
+  bool is_initialized;
+  
+  // Vector of weights of all particles
+  std::vector<double> weights; 
  public:
   // Constructor
   // @param num_particles Number of particles
@@ -64,7 +73,7 @@ class ParticleFilter {
    * @param observations Vector of landmark observations
    */
   void dataAssociation(std::vector<LandmarkObs> predicted, 
-                       std::vector<LandmarkObs>& observations);
+                       std::vector<LandmarkObs>& observations, double sensor_range);
   
   /**
    * updateWeights Updates the weights for each particle based on the likelihood
@@ -111,15 +120,7 @@ class ParticleFilter {
   // Set of current particles
   std::vector<Particle> particles;
 
- private:
-  // Number of particles to draw
-  int num_particles; 
-  
-  // Flag, if filter is initialized
-  bool is_initialized;
-  
-  // Vector of weights of all particles
-  std::vector<double> weights; 
+
 };
 
 #endif  // PARTICLE_FILTER_H_
